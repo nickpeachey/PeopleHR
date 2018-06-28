@@ -1,7 +1,7 @@
 export class AppUserAuth {
   userName: string = "";
   bearerToken: string = "";
-  isAuthenicated: boolean = false;
+  isAuthenticated: boolean = false;
   canAccessProducts: boolean = false;
   canSaveProduct: boolean = false;
   canAccessCategories: boolean = false;

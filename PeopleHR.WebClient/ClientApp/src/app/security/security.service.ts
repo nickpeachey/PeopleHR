@@ -6,9 +6,7 @@ import {AppUser} from './app-user';
 import {LOGIN_MOCKS} from './login-mocks';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SecurityService {
   securityObject: AppUserAuth = new AppUserAuth();
 
@@ -21,7 +19,7 @@ export class SecurityService {
   resetSecurityObject(): void {
     this.securityObject.userName = "";
     this.securityObject.bearerToken = "";
-    this.securityObject.isAuthenicated = false;
+    this.securityObject.isAuthenticated = false;
 
     this.securityObject.canAccessCategories = false;
     this.securityObject.canAccessProducts = false;
