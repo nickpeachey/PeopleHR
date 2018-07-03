@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using PeopleHR.WebClient.Models;
 
 namespace PeopleHR.WebClient.Controllers
 {
@@ -7,10 +11,30 @@ namespace PeopleHR.WebClient.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        private readonly DataContext _context;
+
+        public ProductController(DataContext context)
         {
-            return new string[] { "value1", "value2" };
+            _context = context;
+        }
+        [HttpGet]
+        public JsonResult Get()
+        {
+
+            if (_context.AppUserAuths.ToList().Count == 0)
+            {
+                _context.AppUserAuths.Add(new AppUserAuth
+                {
+                    CanAccessProducts = true,
+                    UserName = "NPeachey"
+                });
+
+                _context.SaveChanges();
+            }
+
+            var result = _context.AppUserAuths.ToList();
+
+            return new JsonResult(result);
         }
     }
 }
